@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Request a Quotation</title>
+  <style>
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: black;
+      border: 1px solid #666;
+      border-radius: 4px;
+      padding: 30px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    h1, h3 {
+      color: white;
+      text-align: center;
+    }
+
+    label {
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      background-color: #EEE;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .submit-btn {
+      background-color: #FFD700;
+      color: black;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background-color: #FFC000;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #success-message {
+      display: none;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>REQUEST A QUOTATION</h1>
+    <form id="quoteForm" action="https://formsubmit.co/cenizajunry271@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="box" />
+      <input type="hidden" name="_subject" value="Quotation Request Submitted" />
+
+      <!-- Section 1 -->
+      <h3>Personal and Company Information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="Full Name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="Email" required />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNumber" name="Phone Number" required />
+        </div>
+        <div class="form-group">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" name="Company Name" required />
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <h3>Product Details</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="productInterest">Product of Interest</label>
+          <select id="productInterest" name="Product of Interest" required>
+            <option value="">Select product</option>
+            <option value="VL AHRDY">VL AHRDY</option>
+            <option value="SINOMACH">SINOMACH</option>
+            <option value="FAW">FAW</option>
+            <option value="SHACMAN">SHACMAN</option>
+            <option value="YUTONG">YUTONG</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="productModel">Product Name (Specific Model)</label>
+          <input type="text" id="productModel" name="Product Model" required />
+        </div>
+        <div class="form-group">
+          <label for="euroType">Euro Type</label>
+          <select id="euroType" name="Euro Type" required>
+            <option value="">Select Euro type</option>
+            <option value="Euro 2">Euro 2</option>
+            <option value="Euro 3">Euro 3</option>
+            <option value="Euro 4">Euro 4</option>
+            <option value="Euro 5">Euro 5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additionalDetails">Additional Details</label>
+        <textarea id="additionalDetails" name="Additional Details"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">REQUEST QUOTE</button>
+      <div id="success-message">Message sent successfully! Refreshing page...</div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('quoteForm');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent default submission
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          successMessage.style.display = 'block';
+          setTimeout(() => {
+            location.reload(); // Refresh after showing success
+          }, 3000); // 3 seconds
+        } else {
+          alert('There was an error sending your request. Please try again.');
+        }
+      }).catch(() => {
+        alert('There was a connection error.');
+      });
+    });
+  </script>
+</body>
+</html>
